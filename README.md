@@ -5,11 +5,14 @@ The Task Management System (TMS) is a web application built using the Laravel fr
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/souvikdas-dev/tms.git`
-2. Install dependencies: `composer install`
-3. Copy the example environment file and configure your environment variables: `cp .env.example .env`
-4. Generate application key: `php artisan key:generate`
-5. Migrate the database: `php artisan migrate`
-6. Seed the database (optional): `php artisan db:seed`
+2. Navigate to the folder: `cd tms`
+3. Install dependencies: `composer install`
+4. Copy the example environment file and configure your environment variables: `cp .env.example .env`
+5. Generate application key: `php artisan key:generate`
+6. Migrate the database: `php artisan migrate`
+7. Seed the database (optional): `php artisan db:seed`
+8. Install Node.js Dependencies: `npm install`
+9. Compile Assets (Optional): `npm run dev`
 
 ## Usage
 1. Start the development server: `php artisan serve`
