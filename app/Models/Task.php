@@ -17,4 +17,17 @@ class Task extends Model
     protected $casts = [
         'due_date' => 'date',
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'due_date',
+        'priority',
+        // 'status'
+    ];
 }
