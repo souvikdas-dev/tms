@@ -30,7 +30,26 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        //-- method 01: --//
+        // $task = new Task();
+        // $task->title = $request->title;
+        // $task->description = $request->description;
+        // $task->due_date = $request->due_date;
+        // $task->priority = $request->priority;
+        // $task->save();
+
+        //-- method 02: --//
+        $task = Task::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+            'priority' => $request->priority,
+            
+        ]);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
