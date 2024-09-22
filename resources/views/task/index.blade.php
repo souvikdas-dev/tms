@@ -75,7 +75,12 @@
                                 </td>
                                 <td class="inline-flex gap-2 px-6 py-4">
                                     <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
-                                    <a href="#" class="font-medium text-red-600 hover:underline">Delete</a>
+
+                                    <form action='{{ url("/tasks/{$task->id}") }}' method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
