@@ -65,7 +65,9 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('task.edit', [
+            'task' => Task::find($id)
+        ]);
     }
 
     /**
@@ -73,7 +75,27 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($id);
+        // dd($request->all());
+
+        //-- method 01: --//
+        // $task = Task::find($id);
+        // $task->title = $request->title;
+        // $task->description = $request->description;
+        // $task->due_date = $request->due_date;
+        // $task->priority = $request->priority;
+        // $task->save();
+
+        //-- method 02: --//
+        $task = Task::where('id', $id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+            'priority' => $request->priority,
+            
+        ]);
+
+        return redirect()->route('tasks.index');
     }
 
     /**

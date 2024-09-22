@@ -73,14 +73,21 @@
                                 <td class="px-6 py-4">
                                     {{ $task->status }}
                                 </td>
-                                <td class="inline-flex gap-2 px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                                <td class="px-6 py-4">
+
+                                    <div class="inline-flex gap-2">
+                                        <a href='{{ url("/tasks/{$task->id}/edit") }}' class="font-medium text-blue-600 hover:underline">Edit</a>
 
                                     <form action='{{ url("/tasks/{$task->id}") }}' method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
                                     </form>
+                                    </div>
+                                        
+                                    <p class="text-gray-600 text-xs">
+                                        {{ $task->updated_at->diffForHumans(); }}
+                                    </p>
                                 </td>
                             </tr>
                             @endforeach
