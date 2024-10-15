@@ -37,16 +37,14 @@ class TaskController extends Controller
         // $task->title = $request->title;
         // $task->description = $request->description;
         // $task->due_date = $request->due_date;
-        // $task->priority = $request->priority;
         // $task->save();
 
         //-- method 02: --//
+        // dd($request->due_date);
         $task = Task::create([
             'title' => $request->title,
             'description' => $request->description,
             'due_date' => $request->due_date,
-            'priority' => $request->priority,
-            
         ]);
 
         return redirect()->route('tasks.index');
@@ -65,6 +63,7 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
+        // dd($id);
         return view('task.edit', [
             'task' => Task::find($id)
         ]);
@@ -83,7 +82,6 @@ class TaskController extends Controller
         // $task->title = $request->title;
         // $task->description = $request->description;
         // $task->due_date = $request->due_date;
-        // $task->priority = $request->priority;
         // $task->save();
 
         //-- method 02: --//
@@ -91,8 +89,6 @@ class TaskController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'due_date' => $request->due_date,
-            'priority' => $request->priority,
-            
         ]);
 
         return redirect()->route('tasks.index');

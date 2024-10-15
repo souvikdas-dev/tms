@@ -18,7 +18,6 @@
                         <x-forms.input name='title' value="{{$task->title}}" placeholder='Enter the title here' required autofocus="autofocus" autocomplete="title" />
                         <x-forms.input name='description' value="{{$task->description}}" required />
                         <x-forms.input type='date' name='due_date' value="{{$task->due_date->format('Y-m-d')}}" required />
-                        <x-forms.input name='priority' value="{{$task->priority}}" required />
 
                         <button type="submit" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Save</button>
                     </form>
