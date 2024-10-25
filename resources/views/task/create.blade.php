@@ -15,8 +15,8 @@
                     <form action="{{ route('tasks.store') }}" method="POST">
                         @csrf
                         <x-forms.input name='title' placeholder='Enter the title here' required autofocus="autofocus" autocomplete="title" />
-                        <x-forms.input name='description' required />
-                        <x-forms.input type='date' name='due_date' required />
+                        <x-forms.textarea name='description' required />
+                        <x-forms.input  type="datetime-local" name='due_date' required />
 
                         <button type="submit" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Save</button>
                     </form>
