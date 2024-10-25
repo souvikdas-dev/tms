@@ -24,6 +24,21 @@
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+            <x-alert type="warning" />
+
+            @if (session('status'))
+            <div class="alert alert-success bg-pink-400">
+                {{ session('status') }}
+            </div>
+            @endif
+
+            @if(session('message'))
+            <h6 class="alert alert-success">
+                {{ session('message') }}
+            </h6>
+            @endif
+
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 rtl:text-right">
@@ -62,10 +77,11 @@
                                     {{ $task->title }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $task->description }}
+                                    {{-- Str::words($task->description, 6, ' ...') --}}
+                                    {{ str()->words($task->description, 6, ' >>>') }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $task->due_date->format('d/m/Y') }}
+                                    {{ $task->due_date->format("d M, Y h:i A") }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $task->priority }}
@@ -78,13 +94,13 @@
                                     <div class="inline-flex gap-2">
                                         <a href='{{ url("/tasks/{$task->id}/edit") }}' class="font-medium text-blue-600 hover:underline">Edit</a>
 
-                                    <form action='{{ url("/tasks/{$task->id}") }}' method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
-                                    </form>
+                                        <form action='{{ url("/tasks/{$task->id}") }}' method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
+                                        </form>
                                     </div>
-                                        
+
                                     <p class="text-gray-600 text-xs">
                                         {{ $task->updated_at->diffForHumans(); }}
                                     </p>
