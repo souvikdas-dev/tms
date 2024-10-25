@@ -26,10 +26,10 @@ class TaskFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'description' => fake()->sentence(),
-            'due_date' => fake()->date(),
-            'priority' => fake()->randomDigit(),
-            'status' => fake()->randomElement(['Pending', 'Complete', 'Incomplete']),
+            'description' => fake()->paragraph(),
+            'due_date' => fake()->dateTimeThisMonth(),
+            // 'priority' => fake()->randomDigit(),
+            // 'status' => fake()->randomElement(['Pending', 'Complete', 'Incomplete']),
         ];
     }
 }
