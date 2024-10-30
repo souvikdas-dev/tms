@@ -102,6 +102,6 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return redirect()->route('tasks.index')->with('status', 'Record deleted!');
+        return redirect()->route('tasks.index')->with('alert', ['type' => 'warning', 'message'=> 'Task Deleted Successfully!']);
     }
 }

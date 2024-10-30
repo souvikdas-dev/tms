@@ -25,19 +25,10 @@
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-            <x-alert type="warning" />
-
-            @if (session('status'))
-            <div class="alert alert-success bg-pink-400">
-                {{ session('status') }}
-            </div>
-            @endif
-
-            @if(session('message'))
-            <h6 class="alert alert-success">
-                {{ session('message') }}
-            </h6>
-            @endif
+            
+            @session('alert')
+            <x-alert type="{{ $value['type'] }}" title="{{ $value['title']??'' }}" message="{{ $value['message'] }}" />
+            @endsession
 
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -101,7 +92,7 @@
                                         </form>
                                     </div>
 
-                                    <p class="text-gray-600 text-xs">
+                                    <p class="text-xs text-gray-600">
                                         {{ $task->updated_at->diffForHumans(); }}
                                     </p>
                                 </td>
