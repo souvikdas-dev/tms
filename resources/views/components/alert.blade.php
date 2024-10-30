@@ -2,24 +2,26 @@
 
 @php
 
+$alert_id = uniqid();
+
 $alertClasses = [
-    'info' => 'text-blue-800 bg-blue-50',
-    'success' => 'text-green-800 bg-green-50',
-    'warning' => 'text-yellow-800 bg-yellow-50',
-    'error' => 'text-red-800 bg-red-50',
+'info' => 'text-blue-800 bg-blue-50',
+'success' => 'text-green-800 bg-green-50',
+'warning' => 'text-yellow-800 bg-yellow-50',
+'error' => 'text-red-800 bg-red-50',
 ][$type];
 
 $closeBtnClasses = [
-    'info' => 'bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200',
-    'success' => 'bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200',
-    'warning' => 'bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200',
-    'error' => 'bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200',
+'info' => 'bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200',
+'success' => 'bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200',
+'warning' => 'bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200',
+'error' => 'bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200',
 ][$type];
 
 @endphp
 
 
-<div class="flex items-center p-4 mb-4 gap-3 text-sm rounded-lg {{ $alertClasses }}" role="alert">
+<div id="alert-{{ $alert_id }}" class="flex items-center p-4 mb-4 gap-3 text-sm rounded-lg opacity-1 transition-opacity duration-500 ease-in-out {{ $alertClasses }}" role="alert">
     <!-- alert icon -->
     @if($type == 'success')
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-6">
@@ -43,15 +45,33 @@ $closeBtnClasses = [
 
     <div>
         @if($title)
-        <span class="font-medium">{{ $title }}</span> <br/>
+        <span class="font-medium">{{ $title }}</span> <br />
         @endif
         {{ $message }}
     </div>
 
-    <button type="button" onclick="this.parentElement.style.display = 'none';" class="ms-auto -mx-1.5 -my-1.5 inline-flex items-center justify-center h-8 w-8 {{ $closeBtnClasses }}" data-dismiss="alert" aria-label="Close">
+    <button type="button" data-alert-dismiss class="ms-auto -mx-1.5 -my-1.5 inline-flex items-center justify-center h-8 w-8 {{ $closeBtnClasses }}" data-dismiss="alert" aria-label="Close">
         <span class="sr-only">Close</span>
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
         </svg>
     </button>
+
+    <script>
+        const alertElement = document.getElementById("alert-{{ $alert_id }}");
+
+        alertElement.querySelector("button[data-alert-dismiss]").addEventListener('click', (e) => {
+            alertElement.style.opacity = "0";
+            setTimeout(function() {
+                alertElement.style.display = "none";
+            }, 600);
+        })
+
+        setTimeout(() => {
+            alertElement.style.opacity = "0";
+            setTimeout(function() {
+                alertElement.style.display = "none";
+            }, 600);
+        }, 3000); // Auto-dismiss after 3 seconds
+    </script>
 </div>
