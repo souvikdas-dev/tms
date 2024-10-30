@@ -25,7 +25,7 @@
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-            
+
             @session('alert')
             <x-alert type="{{ $value['type'] }}" title="{{ $value['title']??'' }}" message="{{ $value['message'] }}" />
             @endsession
@@ -84,12 +84,15 @@
 
                                     <div class="inline-flex gap-2">
                                         <a href='{{ url("/tasks/{$task->id}/edit") }}' class="font-medium text-blue-600 hover:underline">Edit</a>
+                                        <button type="button" onclick="deleteTask('{{ $task->id }}')" class="font-medium text-red-600 hover:underline">Delete</button>
 
+                                        {{--
                                         <form action='{{ url("/tasks/{$task->id}") }}' method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="font-medium text-red-600 hover:underline">Delete {{ $task->id }}</button>
                                         </form>
+                                        --}}
                                     </div>
 
                                     <p class="text-xs text-gray-600">
@@ -108,5 +111,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const deleteTask = (task_id) => {
+            console.log(`taskid": ${task_id}`);
+
+            if (confirm("Are you sure you want to delete!")) {
+
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/tasks/${task_id}`;
+
+                const input_token = document.createElement("input");
+                input_token.type = "hidden";
+                input_token.name = "_token";
+                input_token.value = "{{ csrf_token() }}";
+
+                const input_method = document.createElement("input");
+                input_method.type = "hidden";
+                input_method.name = "_method";
+                input_method.value = "DELETE";
+
+                form.appendChild(input_method);
+                form.appendChild(input_token);
+
+                document.body.appendChild(form);
+
+                // Trigger form submission
+                form.submit();
+            }
+        }
+    </script>
 
 </x-app-layout>
