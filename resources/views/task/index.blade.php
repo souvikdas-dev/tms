@@ -68,8 +68,9 @@
                                     {{ $task->title }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{-- Str::words($task->description, 6, ' ...') --}}
-                                    {{ str()->words($task->description, 6, ' >>>') }}
+                                    <span class="cursor-pointer hover:text-blue-600" onclick="showTaskDescription(`{!! $task->description !!}`)">
+                                        {{ str()->words($task->description, 6, ' ...') }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $task->due_date->format("d M, Y h:i A") }}
@@ -112,6 +113,17 @@
         </div>
     </div>
 
+    <!-- description dialog modal -->
+    <dialog dialog-modal class="rounded-lg py-4 px-6 border shadow-md max-w-[20rem] md:max-w-[30rem] lg:max-w-[45rem] text-base transition-all duration-700 ease-in-out">
+        <p dialog-modal-content class="font-light text-justify">
+        </p>
+
+        <div dialog-modal-actions class="px-4 pt-3 text-right">
+
+            <button type="button" dialog-modal-close class="px-1 py-0.5">Close</button>
+        </div>
+    </dialog>
+
     <script>
         const deleteTask = (task_id) => {
             console.log(`taskid": ${task_id}`);
@@ -140,6 +152,18 @@
                 // Trigger form submission
                 form.submit();
             }
+        }
+
+        const dialogModal = document.querySelector("dialog[dialog-modal]")
+        dialogModal.querySelector("button[dialog-modal-close]").addEventListener('click', (event) => {
+            dialogModal.close() // Opens a modal
+        })
+
+        const showTaskDescription = (description) => {
+
+            dialogModal.querySelector("[dialog-modal-content]").textContent = description;
+
+            dialogModal.showModal() // Opens a modal
         }
     </script>
 
