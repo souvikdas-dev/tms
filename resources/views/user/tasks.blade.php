@@ -13,7 +13,7 @@
 
             <!-- actions -->
             <div class="flex self-end justify-between gap-2">
-                <button type="button" class="text-indigo-700" onclick="showTaskDescription('hello World!')">Assign Task</button>
+                <button type="button" class="text-indigo-700" onclick="fetchTasks()">Assign Task</button>
             </div>
         </div>
     </x-slot>
@@ -46,16 +46,10 @@
 
     <!-- description dialog modal -->
     <dialog dialog-modal class="rounded-lg py-4 px-6 border shadow-md max-w-[20rem] md:max-w-[30rem] lg:max-w-[45rem] text-base transition-all duration-700 ease-in-out">
-        <p dialog-modal-content class="font-light text-justify">
-        </p>
-        <ul class="p-3">
-            @foreach($tasks as $task)
-            <li>
-                <input type="checkbox">
-                {{ $task->title }}
-            </li>
-            @endforeach
-        </ul>
+        <div dialog-modal-content class="font-light text-justify">
+            <ul class="p-3" id="tasks">
+            </ul>
+        </div>
 
         <div dialog-modal-actions class="px-4 pt-3 text-right">
             <button type="button" dialog-modal-close class="px-1 py-0.5 font-medium text-indigo-800 rounded-sm">Done</button>
@@ -69,11 +63,31 @@
             dialogModal.close() // Opens a modal
         })
 
-        const showTaskDescription = (description) => {
+        const fetchTasks = () => {
+            fetch("{{ route('gettasks') }}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(tasks => {
+                    console.log(tasks)
 
-            dialogModal.querySelector("[dialog-modal-content]").textContent = description;
+                    let tasklist = '';
 
-            dialogModal.showModal() // Opens a modal
+                    for (const task of tasks) {
+                        tasklist += `
+                            <li>
+                                <input type="checkbox" name="task-${task.id}" id="task-${task.id}">
+                                <span class="ml-1">${task.title}</span>
+                            </li>
+                        `;
+                    }
+
+                    dialogModal.querySelector("[dialog-modal-content]>#tasks").innerHTML = tasklist;
+                    dialogModal.showModal() // Opens a modal
+                })
         }
     </script>
 

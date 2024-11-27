@@ -27,7 +27,7 @@
                             @foreach($users as $index => $user)
                             <tr class="border-b odd:bg-white even:bg-gray-50">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $users->firstItem() + $index }}
+                                    [$users->firstItem() = {{$users->firstItem()}} + $index = {{$index}}] = {{ $users->firstItem() + $index }}
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{ $user->name }}

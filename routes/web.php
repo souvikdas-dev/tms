@@ -30,13 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('tasks', TaskController::class);
+    Route::post('gettasks', [TaskController::class, 'getTaskData'])->name('gettasks');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get("/users/{user}/tasks", [UserTaskController::class, 'index'])->name('user.tasks');
 });
 
-Route::get('test', [TaskController::class, 'demo'])->name('test');
 
 
 

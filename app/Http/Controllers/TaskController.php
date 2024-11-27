@@ -102,6 +102,11 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return redirect()->route('tasks.index')->with('alert', ['type' => 'warning', 'message'=> 'Task Deleted Successfully!']);
+        return redirect()->route('tasks.index')->with('alert', ['type' => 'warning', 'message' => 'Task Deleted Successfully!']);
+    }
+
+    public function getTaskData()
+    {
+        return Task::take(7)->get();
     }
 }
